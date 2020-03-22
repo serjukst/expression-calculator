@@ -27,7 +27,12 @@ function expressionCalculator(expr) {
 
     let stackNumber = [];
     let stackOperators = [];
-    let arr = expr.trim().split(' ').filter(e => e !== ' ').filter(e => e !== '');;
+    let arr;
+    if (expr.length < 4) {
+        arr = expr.split('');
+    } else {
+        arr = expr.trim().split(' ').filter(e => e !== ' ').filter(e => e !== '');
+    }
 
     if (arr.join('').includes("/0")) {
         throw new Error("TypeError: Division by zero.");
