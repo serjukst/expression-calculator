@@ -52,7 +52,13 @@ function expressionCalculator(expr) {
 
                 let top = stackOperators[stackOperators.length - 1];
 
-                if (operators[top].priority < operators[current].priority) {
+                if (current === ')' && top === '(') {
+                    stackOperators.pop();
+                    top = stackOperators[stackOperators.length - 1];
+                } else if (current === '(' || top === '(') {
+                    stackOperators.push(current);
+
+                } else if (operators[top].priority < operators[current].priority) {
                     stackOperators.push(current);
                 } else {
                     let b = stackNumber.pop();
@@ -66,7 +72,7 @@ function expressionCalculator(expr) {
         };
     };
 
-    for (let j = 0; j < stackOperators.length; j++) {
+    while (stackOperators.length !== 0) {
         let top = stackOperators[stackOperators.length - 1];
         let b = stackNumber.pop();
         let a = stackNumber.pop();
